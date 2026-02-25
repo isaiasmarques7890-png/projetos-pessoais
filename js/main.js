@@ -27,7 +27,7 @@ const inputHora = document.getElementById("hora");
 const inputBusca = document.getElementById("input-busca");
 
 // =============================
-// BUSCA EM TEMPO REAL
+// BUSCA
 // =============================
 inputBusca?.addEventListener("input", e => {
     termoBusca = e.target.value.toLowerCase();
@@ -35,7 +35,7 @@ inputBusca?.addEventListener("input", e => {
 });
 
 // =============================
-// CONTROLE DAS ABAS
+// ABAS
 // =============================
 abas.forEach(aba => {
     aba.addEventListener("click", function () {
@@ -47,7 +47,7 @@ abas.forEach(aba => {
 });
 
 // =============================
-// FORMULÁRIO
+// FORM
 // =============================
 btnAbrirForm.addEventListener("click", () => {
     telaPrincipal.classList.add("oculto");
@@ -61,8 +61,6 @@ btnVoltar.addEventListener("click", () => {
     telaPrincipal.classList.remove("oculto");
 });
 
-// =============================
-// SALVAR (CRIAR OU EDITAR)
 btnSalvar.addEventListener("click", () => {
     if (!inputTitulo.value || !inputData.value) {
         alert("Preencha o título e a data.");
@@ -78,15 +76,14 @@ btnSalvar.addEventListener("click", () => {
         modoEdicao = false;
         tarefaEditandoId = null;
     } else {
-        const novaTarefa = {
+        tarefas.push({
             id: Date.now(),
             titulo: inputTitulo.value,
             descricao: inputDescricao.value,
             data: inputData.value,
             hora: inputHora.value,
             concluida: false
-        };
-        tarefas.push(novaTarefa);
+        });
     }
 
     salvarNoStorage(tarefas);
@@ -97,7 +94,6 @@ btnSalvar.addEventListener("click", () => {
 });
 
 // =============================
-// RENDERIZAR
 function renderizar() {
     const lista = document.getElementById("lista-tarefas");
     lista.innerHTML = "";
@@ -106,10 +102,7 @@ function renderizar() {
 
     if (termoBusca) {
         tarefasFiltradas = tarefasFiltradas.filter(t =>
-            t.titulo.toLowerCase().includes(termoBusca) ||
-            (t.descricao && t.descricao.toLowerCase().includes(termoBusca)) ||
-            t.data.includes(termoBusca) ||
-            (t.hora && t.hora.includes(termoBusca))
+            t.titulo.toLowerCase().includes(termoBusca)
         );
     }
 
@@ -125,8 +118,6 @@ function renderizar() {
     atualizarContadores(tarefas);
 }
 
-// =============================
-// AÇÕES DAS TAREFAS
 function toggleTarefa(id) {
     tarefas = tarefas.map(t =>
         t.id === id ? { ...t, concluida: !t.concluida } : t
@@ -153,8 +144,6 @@ function editarTarefa(tarefa) {
     telaFormulario.classList.remove("oculto");
 }
 
-// =============================
-// UTIL
 function limparFormulario() {
     inputTitulo.value = "";
     inputDescricao.value = "";
@@ -163,115 +152,24 @@ function limparFormulario() {
 }
 
 // =============================
-// INICIAR
-renderizar();
-
-// =============================
-// TIME PICKER CUSTOM
-const timePicker = document.getElementById("time-picker");
-const tpHour = document.getElementById("tp-hour");
-const tpMin = document.getElementById("tp-min");
-const tpBtns = timePicker.querySelectorAll(".tp-btn");
-const tpSet = document.getElementById("tp-set");
-
-// Permitir digitar no picker
-tpHour.removeAttribute("readonly");
-tpMin.removeAttribute("readonly");
-
-tpHour.addEventListener("input", () => {
-    let val = parseInt(tpHour.value) || 0;
-    if (val < 0) val = 0;
-    if (val > 23) val = 23;
-    tpHour.value = val.toString().padStart(2, "0");
-});
-
-tpMin.addEventListener("input", () => {
-    let val = parseInt(tpMin.value) || 0;
-    if (val < 0) val = 0;
-    if (val > 59) val = 59;
-    tpMin.value = val.toString().padStart(2, "0");
-});
-
-// Abrir time picker ao clicar no input
-inputHora.addEventListener("click", () => {
-    timePicker.classList.remove("oculto");
-});
-
-// Incremento/decremento com botões (menos sensível)
-tpBtns.forEach(btn => {
-    let interval;
-    btn.addEventListener("mousedown", () => {
-        const input = btn.parentElement.querySelector("input");
-        const inc = parseInt(btn.dataset.inc);
-
-        // Função de incremento
-        const changeValue = () => {
-            let val = parseInt(input.value) || 0;
-            if (input.id === "tp-hour") {
-                val = (val + inc + 24) % 24;
-            } else {
-                val = (val + inc + 60) % 60;
-            }
-            input.value = val.toString().padStart(2, "0");
-        };
-
-        changeValue();
-        interval = setInterval(changeValue, 300); // mais lento
-    });
-
-    btn.addEventListener("mouseup", () => clearInterval(interval));
-    btn.addEventListener("mouseleave", () => clearInterval(interval));
-});
-
-// Definir hora no input principal
-tpSet.addEventListener("click", () => {
-    inputHora.value = `${tpHour.value}:${tpMin.value}`;
-    timePicker.classList.add("oculto");
-});
-
-// Fechar picker clicando fora
-document.addEventListener("click", (e) => {
-    if (!timePicker.contains(e.target) && e.target !== inputHora) {
-        timePicker.classList.add("oculto");
-    }
-});
-
-// =============================
 // SERVICE WORKER
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-        navigator.serviceWorker
-            .register("/service-worker.js")
-            .then(() => console.log("Service Worker registrado"))
-            .catch((error) => console.log("Erro ao registrar:", error));
+        navigator.serviceWorker.register("/service-worker.js");
     });
 }
 
 // =============================
-// ATUALIZAÇÃO AUTOMÁTICA
-setInterval(() => {
-    if (secaoAtual === "atrasadas") {
-        renderizar();
-    } else {
-        atualizarContadores(tarefas);
-    }
-}, 30_000);
-
-window.addEventListener("load", () => {
+// SPLASH (CORRIGIDA)
+document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
         const splash = document.querySelector(".splash-screen");
         if (splash) {
             splash.classList.add("hide");
+            setTimeout(() => splash.style.display = "none", 600);
         }
-    }, 900);
+    }, 1000);
 });
 
-document.body.classList.add("loading");
-
-window.addEventListener("load", () => {
-    setTimeout(() => {
-        const splash = document.querySelector(".splash-screen");
-        splash.classList.add("hide");
-        document.body.classList.remove("loading");
-    }, 1100);
-});
+// =============================
+renderizar();

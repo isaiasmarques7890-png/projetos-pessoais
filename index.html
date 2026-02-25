@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>PRIORI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">  
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3b5bdb">  
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <img class="logo" src="assets/Group 2.svg" alt="">
+        <button id="btn-abrir-form" class="btn-add">+</button>
+    </header>
+
+    <!-- NAVEGAÇÃO -->
+    <nav class="abas">
+        <button class="aba ativa" data-secao="hoje">Hoje</button>
+        <button class="aba" data-secao="atrasadas">Atrasadas</button>
+        <button class="aba" data-secao="proximas">Próximas</button>
+        <button class="aba" data-secao="concluidas">Concluídas</button>
+    </nav>
+
+    <!-- TELA PRINCIPAL -->
+    <main id="tela-principal">
+
+        <!-- BUSCA -->
+        <div class="busca-container">
+            <input type="text" id="input-busca" placeholder="Buscar tarefa...">
+        </div>
+
+        <!-- LISTA -->
+        <section id="lista-tarefas" class="lista">
+            <!-- EXEMPLO DE CARD -->
+            <div class="card status-hoje">
+
+                <div class="card-info">
+                    <div class="card-titulo">Tarefa Exemplo</div>
+                    <div class="card-descricao">Descrição exemplo da tarefa.</div>
+                    <div class="card-data">23/02/2026 • 14:00</div>
+                </div>
+
+                <div class="card-actions">
+                    <button class="btn-ok">
+                        <img src="assets/ok.png" alt="Concluir">
+                    </button>
+
+                    <button class="delete-btn">
+                        <img src="assets/lixo.png" alt="Excluir">
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FORMULÁRIO -->
+    <section id="tela-formulario" class="oculto">
+
+        <h2>Nova Tarefa</h2>
+
+        <div class="campo">
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo">
+        </div>
+
+        <div class="campo">
+            <label for="descricao">Descrição</label>
+            <input type="text" id="descricao">
+        </div>
+
+        <div class="campo">
+            <label for="data">Data</label>
+            <input type="date" id="data">
+        </div>
+
+        <!-- TIME PICKER CUSTOM -->
+        <div class="campo">
+            <label for="hora">Hora</label>
+            <input type="text" id="hora" placeholder="HH:MM" readonly>
+
+            <div id="time-picker" class="time-picker oculto">
+                <div class="tp-rows">
+                    <div class="tp-col">
+                        <button class="tp-btn" data-inc="-1">▲</button>
+                        <input type="text" id="tp-hour" value="00" readonly>
+                        <button class="tp-btn" data-inc="1">▼</button>
+                    </div>
+                    <span>:</span>
+                    <div class="tp-col">
+                        <button class="tp-btn" data-inc="-1">▲</button>
+                        <input type="text" id="tp-min" value="00" readonly>
+                        <button class="tp-btn" data-inc="1">▼</button>
+                    </div>
+                </div>
+                <button id="tp-set" class="tp-set">Definir</button>
+            </div>
+        </div>
+
+        <div class="acoes-form">
+            <button id="btn-voltar">Voltar</button>
+            <button id="btn-salvar">Salvar</button>
+        </div>
+
+    </section>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

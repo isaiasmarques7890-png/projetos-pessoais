@@ -1,0 +1,442 @@
+/* ================= RESET ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(180deg, #f4f6fb 0%, #f4f6fb 100%);
+    color: #1e293b;
+}
+
+    
+    
+/* ================= HEADER =================eef2ff  */
+
+.header {
+    background: #3b5bdb;
+    color: white;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(59,91,219,0.25);
+}
+
+.logo {
+    height: 28px;
+}
+
+.btn-add {
+    background: white;
+    color: #3b5bdb;
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-size: 22px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.btn-add:hover {
+    transform: scale(1.1) rotate(90deg);
+}
+
+/* ================= ABAS ================= */
+
+.abas {
+    display: flex;
+    justify-content: space-around;
+    background: white;
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.aba {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+    cursor: pointer;
+    padding: 6px 10px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.aba::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #3b5bdb;
+    transition: 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.aba:hover::after {
+    width: 60%;
+}
+
+.aba.ativa {
+    color: #3b5bdb;
+    font-weight: 600;
+    border-bottom: 2px solid #3b5bdb;
+}
+
+/* ================= BUSCA ================= */
+
+.busca-container {
+    padding: 15px 20px;
+}
+
+#input-busca {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    outline: none;
+    font-size: 14px;
+    transition: all 0.25s ease;
+    background: white;
+}
+
+#input-busca:focus {
+    border-color: #3b5bdb;
+    box-shadow: 0 0 0 3px rgba(59,91,219,0.1);
+}
+
+/* ================= LISTA ================= */
+
+.lista {
+    padding: 10px 15px 80px;
+}
+
+/* ================= CARD ================= */
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    background: white;
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 6px 18px rgba(15,23,42,0.06);
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    animation: fadeSlideUp 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(15,23,42,0.08);
+}
+
+.card-info {
+    flex: 1;
+}
+
+/* Ripple effect */
+
+.card::after {
+    content: "";
+    position: absolute;
+    background: rgba(59,91,219,0.15);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.card:active::after {
+    transform: scale(2.5);
+    opacity: 1;
+    transition: 0.4s ease;
+}
+
+/* ================= TÍTULO ================= */
+
+.card-titulo {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+/* ================= DESCRIÇÃO ================= */
+
+.card-descricao {
+    font-size: 13px;
+    color: #64748B;
+    margin: 6px 0 8px 0;
+    line-height: 1.5;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ================= DATA ================= */
+
+.card-data {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+/* ================= AÇÕES ================= */
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-ok,
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.btn-ok:hover {
+    background-color: rgba(16,185,129,0.1);
+    transform: scale(1.1);
+}
+
+.delete-btn:hover {
+    background-color: rgba(239,68,68,0.1);
+    transform: scale(1.1);
+}
+
+.card-actions img {
+    width: 18px;
+    height: 18px;
+}
+
+/* ================= STATUS ================= */
+
+.status-hoje {
+    border-left: 4px solid #3b82f6;
+}
+
+.status-atrasada {
+    border-left: 4px solid #ef4444;
+}
+
+.status-proxima {
+    border-left: 4px solid #10b981;
+}
+
+/* ================= CONCLUÍDA ================= */
+
+@keyframes concluirAnimacao {
+    0% { transform: scale(1); }
+    40% { transform: scale(0.96); }
+    100% { transform: scale(0.98); }
+}
+
+.card.concluida {
+    opacity: 0.55;
+    animation: concluirAnimacao 0.25s ease forwards;
+}
+
+/* ================= FORMULÁRIO ================= */
+
+#tela-formulario {
+    padding: 20px;
+}
+
+#tela-formulario h2 {
+    margin-bottom: 20px;
+}
+
+.campo {
+    margin-bottom: 16px;
+}
+
+.campo label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #475569;
+}
+
+.campo input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.25s ease;
+    text-align: center;
+    background: white;
+}
+
+.campo input:focus {
+    border-color: #3b5bdb;
+    box-shadow: 0 0 0 3px rgba(59,91,219,0.1);
+}
+
+/* ================= TIME PICKER ================= */
+
+.time-picker {
+    margin-top: 10px;
+    background: white;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.tp-rows {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+}
+
+.tp-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tp-btn {
+    background: #eef2ff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.2s;
+}
+
+.tp-btn:hover {
+    background: #dbe4ff;
+}
+
+.tp-set {
+    margin-top: 14px;
+    width: 100%;
+    background: #3b5bdb;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.tp-set:hover {
+    background: #324fc9;
+}
+
+/* ================= AÇÕES FORM ================= */
+
+.acoes-form {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.acoes-form button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+#btn-voltar {
+    margin-right: 10px;
+    background: #e2e8f0;
+}
+
+#btn-voltar:hover {
+    background: #cbd5e1;
+}
+
+#btn-salvar {
+    background: #3b5bdb;
+    color: white;
+}
+
+#btn-salvar:active {
+    transform: scale(0.97);
+}
+
+#btn-salvar:hover {
+    background: #324fc9;
+}
+
+/* ================= UTIL ================= */
+
+.oculto {
+    display: none;
+}
+
+/* ================= SPLASH SCREEN ================= */
+
+/* ================= SPLASH SCREEN AZUL ================= */
+
+.splash-screen {
+    position: fixed;
+    inset: 0;
+    background: #3b5bdb; /* AZUL TOTAL */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.splash-logo {
+    width: 210px;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: splashEntrada 0.6s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes splashEntrada {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.splash-screen.hide {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+}

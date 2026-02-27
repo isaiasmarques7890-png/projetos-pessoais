@@ -171,5 +171,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1000);
 });
 
+const btnTema = document.getElementById("btn-tema");
+
+// Aplicar tema salvo ao carregar
+const temaSalvo = localStorage.getItem("tema");
+
+if (temaSalvo === "dark") {
+    document.body.classList.add("dark");
+    btnTema.textContent = "☀️";
+}
+
+// Alternar tema
+btnTema.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+
+    const darkAtivo = document.body.classList.contains("dark");
+
+    if (darkAtivo) {
+        localStorage.setItem("tema", "dark");
+        btnTema.textContent = "☀️";
+    } else {
+        localStorage.setItem("tema", "light");
+        btnTema.textContent = "🌙";
+    }
+});
+
 // =============================
 renderizar();

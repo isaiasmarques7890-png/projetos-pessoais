@@ -1,9 +1,9 @@
 // tarefas.js
 export function ordenarPorDataHora(tarefas) {
     return tarefas.sort((a, b) => {
-        const dataA = new Date(`${a.data} ${a.hora || "00:00"}`);
-        const dataB = new Date(`${b.data} ${b.hora || "00:00"}`);
-        return dataA - dataB; // crescente
+        const dataA = new Date(`${a.data}T${a.hora || "00:00"}`);
+        const dataB = new Date(`${b.data}T${b.hora || "00:00"}`);
+        return dataA - dataB;
     });
 }
 

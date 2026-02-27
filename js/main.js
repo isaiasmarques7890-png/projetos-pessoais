@@ -24,6 +24,100 @@ const inputTitulo = document.getElementById("titulo");
 const inputDescricao = document.getElementById("descricao");
 const inputData = document.getElementById("data");
 const inputHora = document.getElementById("hora");
+const timePicker = document.getElementById("time-picker");
+const tpHour = document.getElementById("tp-hour");
+const tpMin = document.getElementById("tp-min");
+[tpHour, tpMin].forEach(el => {
+
+    el.addEventListener("focus", () => {
+        el.select();
+    });
+
+});
+function somenteNumero(el, max) {
+
+    el.addEventListener("input", () => {
+    let v = el.value.replace(/\D/g, "");
+
+    // se passar de 2 dígitos, mantém só os 2 últimos
+    if (v.length > 2) v = v.slice(-2);
+
+    el.value = v;
+});
+
+    el.addEventListener("blur", () => {
+        if (el.value === "") {
+            el.value = "00";
+            return;
+        }
+
+        let n = parseInt(el.value, 10);
+
+        if (isNaN(n)) n = 0;
+        if (n > max) n = max;
+
+        // só formata quando sair do campo
+        el.value = String(n).padStart(2, "0");
+    });
+}
+
+if (tpHour && tpMin) {
+    somenteNumero(tpHour, 23);
+    somenteNumero(tpMin, 59);
+}
+
+const tpSet = document.getElementById("tp-set");
+const tpBtns = document.querySelectorAll(".tp-btn");
+
+if (inputHora && timePicker) {
+
+    // abrir picker ao clicar no campo
+    inputHora.addEventListener("click", (e) => {
+        e.stopPropagation();
+        timePicker.classList.toggle("oculto");
+    });
+
+    // evitar fechar quando clicar dentro
+    timePicker.addEventListener("pointerdown", (e) => {
+    e.stopPropagation();
+});
+
+    // fechar ao clicar fora
+    document.addEventListener("click", (e) => {
+    if (
+        !timePicker.contains(e.target) &&
+        e.target !== inputHora
+    ) {
+        timePicker.classList.add("oculto");
+    }
+});
+
+    // botões ▲ ▼
+    tpBtns.forEach((btn, index) => {
+        btn.addEventListener("click", () => {
+            const inc = parseInt(btn.dataset.inc);
+
+            // primeiros dois botões = hora
+            if (index < 2) {
+                let h = parseInt(tpHour.value);
+                h = (h + inc + 24) % 24;
+                tpHour.value = String(h).padStart(2, "0");
+            } 
+            // últimos dois = minuto
+            else {
+                let m = parseInt(tpMin.value);
+                m = (m + inc + 60) % 60;
+                tpMin.value = String(m).padStart(2, "0");
+            }
+        });
+    });
+
+    // botão definir
+    tpSet.addEventListener("click", () => {
+        inputHora.value = `${tpHour.value}:${tpMin.value}`;
+        timePicker.classList.add("oculto");
+    });
+}
 const inputBusca = document.getElementById("input-busca");
 
 // =============================
@@ -169,31 +263,6 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => splash.style.display = "none", 600);
         }
     }, 1000);
-});
-
-const btnTema = document.getElementById("btn-tema");
-
-// Aplicar tema salvo ao carregar
-const temaSalvo = localStorage.getItem("tema");
-
-if (temaSalvo === "dark") {
-    document.body.classList.add("dark");
-    btnTema.textContent = "☀️";
-}
-
-// Alternar tema
-btnTema.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-
-    const darkAtivo = document.body.classList.contains("dark");
-
-    if (darkAtivo) {
-        localStorage.setItem("tema", "dark");
-        btnTema.textContent = "☀️";
-    } else {
-        localStorage.setItem("tema", "light");
-        btnTema.textContent = "🌙";
-    }
 });
 
 // =============================
